@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third party apps 
+    'rest_framework',
+    'corsheaders',
+    
+
     
 ]
 
@@ -48,7 +53,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # cors middlewalre 
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
+# allowing the cors origin although this feature should be disabled in deployment 
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'eshop.urls'
 
