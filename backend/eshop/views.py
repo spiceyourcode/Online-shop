@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view 
- 
-@api_view(['GET'])
-def hello_world(request):
-    return Response({"message": "hello there my name is omari "})
+from django.http import JsonResponse
+
+def health(request):
+    return JsonResponse({"Status":"ok", "app":"Amazon clone"})
