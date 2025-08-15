@@ -1,9 +1,13 @@
 from django.db import models
+# AbstractBaseUser: The base class for creating custom user models
+# PermissionsMixin: Adds permission-related fields and methods to your user model
+# BaseUserManager: Base class for creating custom user managers (handles user creation)
 from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin, BaseUserManager)
 from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
+    # creating regular users 
     def create_user(self,email, password =None, **extra_fields):
         if not email: 
             return ValueError("Users must have an email address")
@@ -13,7 +17,7 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using= self.db)
         return user
-    
+       # creating superusers with special permissions 
     def create_superuser(self,email, password=None, **extra_fields):
         extra_fields.setdefault("is_staff",True)
         extra_fields.setdefault("is_superuser", True)
@@ -40,7 +44,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []   
-
+    # Assigns custom manager ro handle user creation 
     objects = CustomUserManager()
 
     def __str__(self):

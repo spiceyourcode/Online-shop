@@ -35,7 +35,7 @@ class ProfileView(generics.RetrieveUpdateAPIView):
         return Response(UserSerializer(request.user).data)
     
     def patch(self, request, *args , **kwargs):
-        serializer =UpdatedProfileSerializer(instance =request.user, data = request.data,partial = False)
+        serializer =UpdatedProfileSerializer(instance =request.user, data = request.data,partial = True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(UserSerializer(request.user).data)
