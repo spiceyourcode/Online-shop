@@ -17,7 +17,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.select_related("category","seller").all()
     serializer_class = ProductSerializers
     permission_classes = [IsSellerOrReadOnly]
-    parser_classes = [MultiPartParser,FormParser] # supports image upload
+    parser_classes = [MultiPartParser,FormParser] #  MPP supports image upload
     lookup_field = "slug"
 
     filterset_fields ={
@@ -28,7 +28,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     search_fields = ["name","description","brand"]
     ordering_fields = ["created_at","price","name"]
 
-    def person_create(self,serializer):
+    def perform_create(self,serializer):
         serializer.save() #seller injected in serializer.create via request
     
     def get_serializer_context(self):

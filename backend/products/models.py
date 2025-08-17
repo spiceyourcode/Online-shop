@@ -19,6 +19,8 @@ class Category(models.Model):
     
 class Product(models.Model):
     seller = models.ForeignKey(
+        # .CAScade ensures thet the user is deleted together with their products
+        # relates_name field allows reverse access  
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="products"
     )
     category= models.ForeignKey(
@@ -34,7 +36,7 @@ class Product(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=2,default=0)
     num_reviews =models.PositiveIntegerField(default=0)
 
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -43,13 +45,13 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             base = slugify(self.name)
-            candidate= base 
+            candidate = base 
             i = 1
-            while Product.objects.filter(slug = candidate).exclude(pk =self.pk).exists():
-                i +=1
-                candidate = f"{base} -{1}"
-                self.slug = candidate
-            super().save(*args, **kwargs)
+            while Product.objects.filter(slug=candidate).exclude(pk=self.pk).exists():
+                i += 1
+                candidate = f"{base}-{i}"
+            self.slug = candidate
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

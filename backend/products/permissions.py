@@ -1,3 +1,5 @@
+# BasePermisiion - base class for creating permissions in DRF
+# SAFE_METHODS - contains a tuple of the safe methods
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 class IsSellerOrReadOnly(BasePermission):
