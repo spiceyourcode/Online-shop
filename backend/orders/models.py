@@ -15,12 +15,12 @@ class Order(models.Model):
     postal_code = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
     total_price = models.DecimalField(max_digits=10,decimal_places=2, default=0.00)
-    is_paid = models.BooleanField(False)
+    is_paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now= True)
 
     def __str__(self):
-        return f"Order {self.id} by {self.user.username}"
+        return f"Order {self.id} by {self.user.email}"
     
     # order item model 
 class OrderItem(models.Model):
