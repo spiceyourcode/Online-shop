@@ -5,6 +5,12 @@ from products.models import Product
 # orders model 
 
 class Order(models.Model):
+    STATUS_CHOICES =[
+        ('PENDING','pending'),
+        ('PAID','paid'),
+        ('SHIPPED','shipped'),
+        ('DELIVERED','delivered'),
+    ]
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete= models.CASCADE,
@@ -43,4 +49,25 @@ class OrderItem(models.Model):
     def subtotal(self):
         return self.quantity * self.price
     
+class ShippingAddress(models.Model):
+    order= models.OneToOneField(Order, on_delete=models.CASCADE,related_name="shipping_address")
+    full_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    city= models.CharField(max_length=100)
+    postal_code= models.CharField(max_length=20)
+    country = models.CharField(max_length=100)
+    phone= models.CharField(max_length=20)
     
+    def __str__(self):
+        return f"Shipping for Order {self.order.id}"
+
+class Payment(models.Model):
+    Order= models.OneToOneField(Order, on_delete=models.CASCADE, related_name="payment")
+    provider = models.CharField(max_length=50)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction_id = models.CharField(max_length=100,unique=True)
+    status = models.CharField(max_length=50, default="INITIATED")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Payment {self.transaction_id} - {self.status}"

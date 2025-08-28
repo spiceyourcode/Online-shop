@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order, OrderItem
+from .models import Order, OrderItem, ShippingAddress,Payment
 from products.serializers import ProductSerializers
 from products.models import Product
 
@@ -53,4 +53,15 @@ class OrderSerializer(serializers.ModelSerializer):
         order.total_price = total
         order.save()
         return order
-            
+
+class ShippingAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShippingAddress
+        fields = "__all__"
+        read_only_fields = ["order"]
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ["id", "user", "status", "total_price", "created_at", "items", "shipping_address", "payment"]
+        read_only_fields = ["user", "created_at", "total_price"]
