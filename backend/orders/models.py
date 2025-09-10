@@ -62,7 +62,8 @@ class ShippingAddress(models.Model):
         return f"Shipping for Order {self.order.id}"
 
 class Payment(models.Model):
-    Order= models.OneToOneField(Order, on_delete=models.CASCADE, related_name="payment")
+    # made a change here 
+    Order= models.OneToOneField(Order, on_delete=models.CASCADE, related_name="payment_order")
     provider = models.CharField(max_length=50)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     transaction_id = models.CharField(max_length=100,unique=True)

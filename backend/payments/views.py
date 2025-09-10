@@ -7,40 +7,40 @@ from .models import Payment
 from .serializers import PaymentSerializer
 from orders.models import Order
 
-stripe.api_key = settings.STRIPE_SECRET_KEY 
+# stripe.api_key = settings.STRIPE_SECRET_KEY 
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         try:
             order_id = request.data.get("order_id")
-            order = order.objects.get(id = order_id, user = request.user)
+            order = Order.objects.get(id=order_id, user=request.user)
 
-            #creating the paymentIntent 
+            # creating the paymentIntent
             intent = stripe.PaymentIntent.create(
-                amount = int(order.total_amount * 100), #convert to cents
-                currency= "ksh",
-                metadata= {"order_id":order.id}
+                amount=int(order.total_price * 100),  # convert to cents
+                currency="ksh",
+                metadata={"order_id": order.id}
             )
-            payment = payment.objects.create(
-                order = order, 
-                user = request.user , 
-                stripe_payment_intent = intent["id"],
-                amount = order.total_amount,
-                currency = "ksh",
-                status = "created"
+            payment = Payment.objects.create(
+                order=order,
+                user=request.user,
+                stripe_payment_intent=intent["id"],
+                amount=order.total_price,
+                currency="ksh",
+                status="created"
             )
 
             return Response({
-                "client_secret": intent["clinet_secret"],
-                "payment":PaymentSerializer(payment).data
-            }, status = status.HTTP_201_CREATED)
+                "client_secret": intent["client_secret"],
+                "payment": PaymentSerializer(payment).data
+            }, status=status.HTTP_201_CREATED)
 
         except Order.DoesNotExist:
-            return Response({"error":"Order not found or not yours"}, status=404)
+            return Response({"error": "Order not found or not yours"}, status=404)
     
     def update(self, request ,*args, **kwargs):
         """ Webhook or client confirmation updates payment status."""
