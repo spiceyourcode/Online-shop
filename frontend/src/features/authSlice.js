@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api/axios";
+//Slice - a piece of the redux store that contains 
+// Initial State 
+// Reducers (functions to update the state)
+// Actions (Functions you call to trigger that the state has changes)
 
+// createAsyncThunk - handle asynchrnous operations like API calls 
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
