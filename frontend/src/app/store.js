@@ -1,6 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";  //this is the store to hold the app state
+import { configureStore,  } from "@reduxjs/toolkit";  //this is the store to hold the app state
 import authReducer from "../features/authSlice"; 
 import productsReducer from "../features/productsSlice"
+import cartReducer from "../features/cartsSlice"
 //reducer - function that updtaes states based on actions 
 
 
@@ -9,5 +10,6 @@ export const store = configureStore({
         // This manages authentication state (login/loggedout)
         auth : authReducer,
         products: productsReducer,
+        cart: cartReducer,
     },
 });
