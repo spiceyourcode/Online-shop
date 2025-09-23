@@ -4,15 +4,16 @@ import api from "../api/axios";
 export const fetchProducts = createAsyncThunk(
     "products/fetchAll",
     async () => {
-        const response = await api.get(`/products/`)
-        return response.data;
+        const response = await api.get(`/products`)
+        return response.data.results;
+        
     }
 );
 
 export const fetchProduct = createAsyncThunk (
     "products/fetchOne",
-    async () =>{
-        const response = await api.get(`/products/${id}`);
+    async (slug) => {
+        const response = await api.get(`/products/${slug}`);
         return response.data;
     }
 );

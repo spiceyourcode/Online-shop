@@ -19,13 +19,17 @@ function Home() {
       <h1>Products</h1>
       <ul>
         {items.map((item) => {
-          <li key={item.id}>
-            <Link to={`/products/${item.id}`}>
-              {item.name} -{item.price}
-            </Link>
-          </li>;
+          return (
+            <li key={item.id}>
+              <Link to={`/products/${item.slug}`}>
+                {item.name} - {item.price} 
+              </Link>
+            </li>
+          );
         })}
       </ul>
     </div>
   );
 }
+
+export default Home;

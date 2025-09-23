@@ -5,7 +5,7 @@ from .serializers import CategorySerializer, ProductSerializers
 from .permissions import IsSellerOrReadOnly
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsSellerOrReadOnly]
     lookup_field = "slug"
