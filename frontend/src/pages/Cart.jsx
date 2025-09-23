@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, updateQuantity } from "../features/cartsSlice";
+import { clearCart, removeFromCart, updateQuantity } from "../features/cartsSlice";
+import { Link } from "react-router-dom";
 
 function Cart() {
     const { items } = useSelector((state) => state.cart);
@@ -40,12 +41,16 @@ function Cart() {
                                     </button>
                                 </li>
                             ))}
-
                         </ul>
-
+                        <h3> Total: {total.toFixed(2)}</h3>
+                        <button onClick={()=> dispatch(clearCart())}> Clear Cart
+                        </button>
+                        <Link to = "/checkout">
+                            <button>Proceed to checkout</button>
+                        </Link>
                     </>
-                )
-            }
+                )}
         </div>
-    )
+    );
 }
+export default Cart;

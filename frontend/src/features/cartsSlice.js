@@ -25,7 +25,7 @@ const cartSlice = createSlice({
             const {id , quantity} = actions.payload; 
             const item = state.items.find((i)=>i.product.id ===id);
             if(item){
-                item.quantity = qunatity; 
+                item.quantity = quantity; 
             }
         },
         clearCart : (state) => {
