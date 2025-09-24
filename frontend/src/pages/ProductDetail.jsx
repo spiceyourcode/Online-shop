@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from  "react-router-dom";
 import { fetchProduct } from "../features/productsSlice";
+import Reviews from "../components/Reviews"
 
 function ProductDetail(){
     const {slug} = useParams();
@@ -19,6 +20,7 @@ function ProductDetail(){
             <h2>{selected.name}</h2>
             <p>{selected.description}</p>
             <p>Price: ${selected.price}</p>
+            <Reviews productId ={selected.id}/>
         </div>
     );
 }
