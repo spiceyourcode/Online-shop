@@ -20,7 +20,7 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData) => {
-    const response = await api.post("/users/register/", userData);
+    const response = await api.post("/auth/register/", userData);
     return response.data;
   }
 );

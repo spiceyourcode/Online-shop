@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../features/productsSlice";
 import { Link } from "react-router-dom";
+import ProductFilters from "../components/ProductFilters";
 
 function Home() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function Home() {
   return (
     <div>
       <h1>Products</h1>
+      <ProductFilters/>
       <ul>
         {items.map((item) => {
           return (
