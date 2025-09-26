@@ -1,4 +1,14 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isFulfilled } from "@reduxjs/toolkit";
+
+// creating the Checkoutchunk - calls the backend payment endpoint 
+export const checkout = createAsyncThunk(
+    "cart/checkout",
+    async (OrderData) =>{
+        const response = await api.post("/orders/checkout", orderData);
+        return response.data;
+    }
+)
+
 
 const cartSlice = createSlice({
     name: "cart",
@@ -30,9 +40,14 @@ const cartSlice = createSlice({
         },
         clearCart : (state) => {
             state.items = [];
+            state.total = 0;
         }
     }, 
-
+    extraReducers : (builder) =>{
+        builder.addCase(checkout.fulfilled, (state, action)=>{
+            state.paymentIntent = action.payload; //stores the payment session
+        });
+    },
 });
 
 export default cartSlice.reducer;
