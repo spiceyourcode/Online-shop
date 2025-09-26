@@ -3,6 +3,7 @@ import authReducer from "../features/authSlice";
 import productsReducer from "../features/productsSlice"
 import cartReducer from "../features/cartsSlice"
 import reviewsReducer from "../features/reviewSlice"
+import  paymentsReducer from "../features/paymentSlice"
 //reducer - function that updtaes states based on actions 
 
 
@@ -13,5 +14,6 @@ export const store = configureStore({
         products: productsReducer,
         cart: cartReducer,
         reviews : reviewsReducer,
+        payments : paymentsReducer,
     },
 });

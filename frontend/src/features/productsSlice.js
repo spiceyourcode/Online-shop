@@ -3,8 +3,8 @@ import api from "../api/axios";
 
 export const fetchProducts = createAsyncThunk(
     "products/fetchAll",
-    async () => {
-        const response = await api.get(`/products`)
+    async (params ={}) => {
+        const response = await api.get(`/products`,{params})
         return response.data.results;
         
     }

@@ -11,12 +11,14 @@ export default function ProductFilters(){
 
     const handleSearch = (e) =>{
         e.preventDefault();
-        dispatch(fetchProducts({
-            search:query,
-            category,
-            min_price: minPrice,
-            max_price :maxPrice
-        }))
+        // build params only if they have values 
+        const filters ={};
+        if(query) filters.search = query;
+        if(category) filters.category = category;
+        if(minPrice) filters.min_price = minPrice;
+        if(maxPrice) filters.max_price = maxPrice;
+
+        dispatch(fetchProducts(filters));
     };
 
     return(

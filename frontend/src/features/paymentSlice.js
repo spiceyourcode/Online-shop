@@ -16,7 +16,7 @@ export const initiatePayment = createAsyncThunk(
 const paymentSlice = createSlice ({
     name:"payments", 
     initialState:{
-     status : idle, //  idle| loading| succeeded| failed
+     status : "idle", //  idle| loading| succeeded| failed
      error : null , 
      redirectUrl:null,  
     }, 
