@@ -9,29 +9,36 @@ function Home() {
   const dispatch = useDispatch();
   const { items, status } = useSelector((state) => state.products);
 
+  // Load products initially
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({})); // empty filters -> all products
   }, [dispatch]);
-
-  if (status === "loading") return <div> Loading ...</div>;
-  if (!items.length) return <p>No products found</p>;
 
   return (
     <div>
       <h1>Products</h1>
-      <SearchBar/>
-      <ProductFilters/>
-      <ul>
-        {items.map((item) => {
-          return (
+
+      {/* Search + Filters */}
+      <SearchBar />
+      <ProductFilters />
+
+      {/* Status Handling */}
+      {status === "loading" && <p>Loading...</p>}
+      {status === "failed" && <p>Error loading products.</p>}
+      {status === "succeeded" && items.length === 0 && <p>No products found.</p>}
+
+      {/* Product List */}
+      {status === "succeeded" && items.length > 0 && (
+        <ul>
+          {items.map((item) => (
             <li key={item.id}>
               <Link to={`/products/${item.slug}`}>
-                {item.name} - {item.price} 
+                {item.name} - {item.price}
               </Link>
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
