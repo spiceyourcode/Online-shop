@@ -23,13 +23,13 @@ export default function ProductFilters(){
 
     return(
         <form onSubmit={handleSearch}>
-            <input
+            {/* <input
                 type="text"
                 placeholder="Search products.."
                 value={query}
                 onChange={(e)=>setQuery(e.target.value)}
             
-            />
+            /> */}
             <select value={category} onChange={(e)=> setCategory(e.target.value)}>
                 <option value="">Select option</option>
                 <option value="Phones">Phones</option>
