@@ -5,40 +5,44 @@ import { Link } from "react-router-dom";
 import ProductFilters from "../components/ProductFilters";
 import SearchBar from "../components/SearchBar";
 
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 function Home() {
   const dispatch = useDispatch();
   const { items, status } = useSelector((state) => state.products);
 
-  // Load products initially
   useEffect(() => {
-    dispatch(fetchProducts({})); // empty filters -> all products
+    dispatch(fetchProducts());
   }, [dispatch]);
 
+  if (status === "loading") return <div>Loading...</div>;
+  if (!items.length) return <p>No products found</p>;
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline" >Products</h1>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Products</h1>
 
-      {/* Search + Filters */}
-      <SearchBar />
-      <ProductFilters />
+      <div className="mb-4">
+        <SearchBar />
+        <ProductFilters />
+      </div>
 
-      {/* Status Handling */}
-      {status === "loading" && <p>Loading...</p>}
-      {status === "failed" && <p>Error loading products.</p>}
-      {status === "succeeded" && items.length === 0 && <p>No products found.</p>}
-
-      {/* Product List */}
-      {status === "succeeded" && items.length > 0 && (
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {items.map((item) => (
+          <Card key={item.id} className="shadow">
+            <CardHeader>
+              <CardTitle className="text-lg">{item.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600 mb-2">{item.price} Ksh</p>
               <Link to={`/products/${item.slug}`}>
-                {item.name} - {item.price}
+                <Button className="w-full">View Details</Button>
               </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
