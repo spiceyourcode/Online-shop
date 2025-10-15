@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, isFulfilled } from "@reduxjs/toolkit";
-
+import api from "../api/axios"
 // creating the Checkoutchunk - calls the backend payment endpoint 
 export const checkout = createAsyncThunk(
     "cart/checkout",
-    async (OrderData) =>{
+    async (orderData) =>{
         const response = await api.post("/orders/checkout", orderData);
         return response.data;
     }
