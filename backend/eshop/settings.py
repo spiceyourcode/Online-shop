@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_filters',
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     
 ]
 
@@ -81,6 +83,15 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE":12,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS ={
+    "TITLE": "Online Shop API",
+    "DESCRIPTION" : "Full documentation on my Amazon clone",
+    "VERSION" : "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+
 }
 
 
