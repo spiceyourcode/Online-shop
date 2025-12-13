@@ -27,12 +27,14 @@ from drf_spectacular.views import (
 urlpatterns = [
     # Application urls 
     path('admin/', admin.site.urls),
-    path("api/auth/", include("users.urls")),
-    path("api/products",include("products.urls")),
-    path("api/carts", include("carts.urls")),
-    path("api/orders", include("orders.urls")),
-    path("api/reviews", include("reviews.urls")),
-    path("api/payments", include("payments.urls")),
+    path("api/", include([
+        path("", include("users.urls")),
+        path("",include("products.urls")),
+        path("", include("carts.urls")),
+        path("", include("orders.urls")),
+        path("", include("reviews.urls")),
+        path("", include("payments.urls")),
+    ])),
 
     # swagger and redoc urls
 

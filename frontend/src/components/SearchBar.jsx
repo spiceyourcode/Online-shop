@@ -1,14 +1,14 @@
 import { useState } from "react";
 import {useDispatch} from "react-redux";
-import { fetchProduct } from "../features/productsSlice";
+import { fetchProducts } from "../features/productsSlice";
 
 function SearchBar(){
     const dispatch = useDispatch();
-    const [query , setQuury] = useState("");
+    const [query , setQuery] = useState("");
 
     function handleSearch(e){
         e.preventDefault();
-        dispatch(fetchProduct({search:query}));
+        dispatch(fetchProducts({ search: query }));
     };
 
     return(
@@ -16,8 +16,8 @@ function SearchBar(){
             <input
                 type="text"
                 placeholder="search"
-                value={query}
-                onChange={(e)=> setQuury(e.target.value)}
+            value={query}
+            onChange={(e)=> setQuery(e.target.value)}
             />
             <button type="submit"> search </button>
         </form>

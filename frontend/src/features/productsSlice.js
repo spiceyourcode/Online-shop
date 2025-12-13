@@ -29,12 +29,31 @@ const productSlice = createSlice({
     reducers :{},
     extraReducers : (builder)=>{
         builder
-        .addCase(fetchProduct.fulfilled,(state, action)=>{
-            state.selected = action.payload
+        // fetchProducts cases
+        .addCase(fetchProducts.pending, (state) => {
+            state.status = "loading";
+            state.error = null;
         })
         .addCase(fetchProducts.fulfilled, (state, action) =>{
-            state.items = action.payload;
+            state.items = action.payload || [];
             state.status = "succeeded";
+        })
+        .addCase(fetchProducts.rejected, (state, action) => {
+            state.status = "failed";
+            state.error = action.error.message;
+            state.items = [];
+        })
+        // fetchProduct cases
+        .addCase(fetchProduct.pending, (state) => {
+            state.status = "loading";
+        })
+        .addCase(fetchProduct.fulfilled,(state, action)=>{
+            state.selected = action.payload;
+            state.status = "succeeded";
+        })
+        .addCase(fetchProduct.rejected, (state, action) => {
+            state.status = "failed";
+            state.error = action.error.message;
         });
     },
 

@@ -10,19 +10,19 @@ import { Button } from "@/components/ui/button";
 
 function Home() {
   const dispatch = useDispatch();
-  const { items, status } = useSelector((state) => state.products);
+  const { items, status, error } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  if (status === "loading") return <div>Loading...</div>;
-  if (!items.length) return <p>No products found</p>;
+  if (status === "loading") return <div className="p-4">Loading...</div>;
+  if (status === "failed") return <div className="p-4 text-red-500">Error: {error}</div>;
+  if (!items || !items.length) return <p className="p-4">No products found</p>;
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 
-      \">Products</h1>
+      <h1 className="text-2xl font-bold mb-4">Products</h1>
 
       <div className="mb-4">
         <SearchBar />
