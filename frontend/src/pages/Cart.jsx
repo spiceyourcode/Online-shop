@@ -1,6 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeFromCart, updateQuantity } from "../features/cartsSlice";
 import { Link } from "react-router-dom";
+import {
+    Empty,
+    EmptyContent,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyMedia,
+    EmptyTitle,
+  } from "@/components/ui/empty"
+import { Button } from "@/components/ui/button"
 
 function Cart() {
     const { items } = useSelector((state) => state.cart);
@@ -16,7 +25,17 @@ function Cart() {
                 Your Cart
             </h2>
             {items.length == 0 ?
-                (<p>The cart is empty</p>) :
+                // (<p>The cart is empty</p>) 
+                <Empty>
+  <EmptyHeader>
+    <EmptyTitle>No data</EmptyTitle>
+    <EmptyDescription>No data found</EmptyDescription>
+  </EmptyHeader>
+  <EmptyContent>
+    <Button>Add data</Button>
+  </EmptyContent>
+</Empty>
+                :
                 (
                     <>
                         <ul>
