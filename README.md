@@ -212,4 +212,4 @@ For support, email support@onlineshop.com or join our Slack channel.
 
 ---
 
-**Built with ❤️ by the Online Shop Team**
+**Built with Frankline**

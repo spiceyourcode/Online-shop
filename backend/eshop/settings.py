@@ -111,7 +111,14 @@ MIDDLEWARE = [
 # restricts web pages from making requests to a different domain than these ones
 CORS_ALLOWED_ORIGINS = env.list(
     "CORS_ALLOWED_ORIGINS",
-    default=["http://localhost:5173", "http://127.0.0.1:5173"]
+    default=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        "http://127.0.0.1:8000",
+        "http://localhost:8000",
+    ]
 )
 
 ROOT_URLCONF = 'eshop.urls'
