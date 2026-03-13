@@ -28,13 +28,13 @@ const Hero = () => {
                 Shop Now <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" asChild>
+            <Button size="lg" variant="default" className="border-white/30 text-white hover:bg-white/10 cursor-pointer" asChild>
               <Link to="/?ordering=price">View Deals</Link>
             </Button>
           </div>
         </motion.div>
       </div>
-      <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center opacity-10 mix-blend-overlay" />
+      <div className="absolute inset-0 bg-[url('/shutter-speed-BQ9usyzHx_w-unsplash.jpg')] bg-cover bg-right opacity-3 mix-blend-overlay" />
     </section>
   );
 };
